@@ -18,7 +18,7 @@ public class US_03_stepDefs_Oksana {
 
     @Given("the user logged in with email and password")
     public void the_user_logged_in_with_email_and_password() {
-       loginPage.login(ConfigurationReader.getProperty("pos_manager_emailOK"), ConfigurationReader.getProperty("pos_manager_password"));
+       loginPage.login("posmanager50@info.com", "posmanager");
 
 
     }
