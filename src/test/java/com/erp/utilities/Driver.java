@@ -3,6 +3,7 @@ package com.erp.utilities;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
@@ -10,10 +11,7 @@ import java.time.Duration;
 public class Driver {
 
 
-    //create a private constructor to remove access to this object
-    private Driver(){}
-
-    /*
+   /*
     We make the WebDriver private, because we want to close access from outside the class.
     We are making it static, because we will use it in a static method.
      */
@@ -42,7 +40,10 @@ public class Driver {
             switch (browserType){
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--remote-allow-origins=*");
+
+                    driverPool.set(new ChromeDriver(options));
                     driverPool.get().manage().window().maximize();
                     driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                     break;
@@ -75,5 +76,4 @@ public class Driver {
             driverPool.remove();
         }
     }
-
 }
